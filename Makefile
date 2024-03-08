@@ -4,7 +4,9 @@ PROGRAMMER = usbasp
 FILENAME   = main
 COMPILE    = avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
-all: clean build upload
+.PHONY: all build upload clean
+
+all: build upload
 
 build:
 	$(COMPILE) -c $(FILENAME).c -o $(FILENAME).o
@@ -16,6 +18,6 @@ upload:
 	avrdude -v -p $(DEVICE) -c $(PROGRAMMER) -U flash:w:$(FILENAME).hex:i 
 
 clean:
-	rm main.o
-	rm main.elf
-	rm main.hex
+	rm -f main.o
+	rm -f main.elf
+	rm -f main.hex
